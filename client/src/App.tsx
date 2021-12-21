@@ -1,24 +1,26 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { useEffect, useState } from 'react';
 import './App.css';
 
 function App() {
+  const [employees, setEmployees] = useState<any>();
+
+  useEffect(() => {
+    const getEmployees = async () => {
+      const employeesResponse = await fetch('http://localhost:8080/users');
+      const employeesJSON = await employeesResponse.json();
+      setEmployees(employeesJSON);
+    };
+
+    getEmployees();
+  }, []);
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <div>
+        {employees
+          ? employees.results.map((a: any) => <div>{`${a.name.first} ${a.name.last }`}</div>)
+          : 'loading'}
+      </div>
     </div>
   );
 }

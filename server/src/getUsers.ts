@@ -11,24 +11,17 @@ const getUsers = async () => {
   return {
     info: users.data.info,
     results: users.data.results.map(
-      ({
+      (
+        { name, location, email, dob, phone, cell, picture, nat }: User,
+        i: number
+      ) => ({
         name,
         location,
         email,
         dob,
         phone,
         cell,
-        id,
-        picture,
-        nat,
-      }: User) => ({
-        name,
-        location,
-        email,
-        dob,
-        phone,
-        cell,
-        id,
+        id: i, // the IDs provided by randomuser.me were unreliable (undefined/NaN)
         picture,
         nat,
         job: {

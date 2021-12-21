@@ -17,6 +17,7 @@ app.use(
 app.use(bodyParser.json());
 app.use(cors());
 
+// users array to mock a collection of users
 let users: Array<User>;
 
 app.get('/users', async (req: Request, res: Response) => {

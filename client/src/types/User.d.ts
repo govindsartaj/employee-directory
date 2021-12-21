@@ -5,7 +5,7 @@ export interface User {
   dob: DOB;
   phone: string;
   cell: string;
-  id: Id;
+  id: number;
   picture: Picture;
   nat: string;
   job: Job;
@@ -39,10 +39,6 @@ export interface Timezone {
 export interface DOB {
   date: string;
   age: number;
-}
-export interface Id {
-  name: string;
-  value?: null;
 }
 export interface Picture {
   large: string;

@@ -1,14 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import './App.css';
+import { User } from './types/User';
 
 function App() {
-  const [employees, setEmployees] = useState<any>();
+  const [employees, setEmployees] = useState<Array<User>>();
 
   useEffect(() => {
     const getEmployees = async () => {
       const employeesResponse = await fetch('http://localhost:8080/users');
       const employeesJSON = await employeesResponse.json();
-      setEmployees(employeesJSON);
+      setEmployees(employeesJSON.results);
     };
 
     getEmployees();
@@ -18,7 +19,9 @@ function App() {
     <div className="App">
       <div>
         {employees
-          ? employees.results.map((a: any) => <div>{`${a.name.first} ${a.name.last }`}</div>)
+          ? employees.map((a: User) => (
+              <div>{`${a.name.first} ${a.name.last}`}</div>
+            ))
           : 'loading'}
       </div>
     </div>

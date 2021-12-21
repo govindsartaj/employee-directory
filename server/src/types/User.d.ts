@@ -1,3 +1,12 @@
+export interface RandomUserResponse {
+  info: {
+    seed: string;
+    results: number;
+    page: number;
+    version: number;
+  };
+  results: Array<User> | null;
+}
 export interface User {
   gender: string;
   name: Name;

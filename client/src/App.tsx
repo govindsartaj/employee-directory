@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import './App.css';
+import EmployeeListContainer from './components/EmployeeListContainer';
 import { User } from './types/User';
 
 function App() {
@@ -9,7 +10,7 @@ function App() {
     const getEmployees = async () => {
       const employeesResponse = await fetch('http://localhost:8080/users');
       const employeesJSON = await employeesResponse.json();
-      setEmployees(employeesJSON.results);
+      setEmployees(employeesJSON);
     };
 
     getEmployees();
@@ -17,13 +18,7 @@ function App() {
 
   return (
     <div className="App">
-      <div>
-        {employees
-          ? employees.map((a: User) => (
-              <div>{`${a.name.first} ${a.name.last}`}</div>
-            ))
-          : 'loading'}
-      </div>
+      <EmployeeListContainer employees={employees} />
     </div>
   );
 }

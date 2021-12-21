@@ -4,6 +4,7 @@ const app = express();
 const bodyParser = require('body-parser');
 import { Request, Response } from 'express';
 import getUsers from './getUsers';
+import { User } from './types/User';
 
 const PORT = 8080;
 
@@ -16,9 +17,16 @@ app.use(
 app.use(bodyParser.json());
 app.use(cors());
 
+let users: Array<User>;
+
 app.get('/users', async (req: Request, res: Response) => {
-  const users = await getUsers();
   res.send(users);
 });
 
-app.listen(PORT, () => console.log(`Server listening on ${PORT}`));
+// data is fetched when server is started - this is done to mock a db
+app.listen(PORT, async () => {
+  console.log(`Server listening on ${PORT}`);
+  const response = await getUsers();
+  users = response.results
+  console.log(users.length);
+});

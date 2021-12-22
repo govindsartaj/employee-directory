@@ -1,11 +1,26 @@
+import EmployeeList from './EmployeeList';
+import {useEffect, useState} from 'react';
 import { User } from '../types/User';
 
-type Props = {
-  employees: Array<User> | undefined;
-};
+const EmployeeListContainer = () => {
 
-const EmployeeListContainer = ({ employees }: Props) => {
-  return <>{JSON.stringify(employees)}</>;
+  const [employees, setEmployees] = useState<Array<User>>([]);
+
+  useEffect(() => {
+    const getEmployees = async () => {
+      const employeesResponse = await fetch('http://localhost:8080/users');
+      const employeesJSON = await employeesResponse.json();
+      setEmployees(employeesJSON);
+    };
+
+    getEmployees();
+  }, []);
+
+  return (
+    <div className='flex align-middle justify-center'>
+      <EmployeeList employees={employees} />
+    </div>
+  );
 };
 
 export default EmployeeListContainer;

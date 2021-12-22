@@ -9,33 +9,26 @@ import Avatar from '@mui/material/Avatar';
 import { User } from '../types/User';
 import { useState } from 'react';
 
-const EmployeeList = ({ employees }: EmployeeListProps) => {
-  const [checked, setChecked] = useState<number | null>();
-
-  const handleToggle = (id: number) => () => {
+const EmployeeList = ({
+  employees,
+  selected,
+  setSelected,
+}: EmployeeListProps) => {
+  
+  const handleClick = (id: number) => {
     console.log(id);
+    setSelected(id);
   };
 
   return (
-    <List
-      dense
-      className="w-3/5"
-    >
+    <List dense>
       {employees.map((employee: User) => (
-        <ListItem
-          key={employee.id}
-          secondaryAction={
-            // <Checkbox
-            //   edge="end"
-            //   onChange={handleToggle(employee.id)}
-            //   checked={false}
-            //   inputProps={undefined}
-            // />
-            undefined
-          }
-          disablePadding
-        >
-          <ListItemButton>
+        <ListItem key={employee.id} disablePadding>
+          <ListItemButton
+            onClick={() => handleClick(employee.id)}
+            selected={employee.id === selected}
+            disableRipple={true}
+          >
             <ListItemAvatar>
               <Avatar
                 alt={`Avatar for ${employee.name.first} ${employee.name.last}`}
@@ -44,8 +37,13 @@ const EmployeeList = ({ employees }: EmployeeListProps) => {
             </ListItemAvatar>
             <ListItemText
               primary={`${employee.name.first} ${employee.name.last}`}
-              secondary={<>{employee.job.title}<br />{employee.job.department}</>}
-              
+              secondary={
+                <>
+                  {employee.job.title}
+                  <br />
+                  {employee.job.department}
+                </>
+              }
             />
           </ListItemButton>
         </ListItem>

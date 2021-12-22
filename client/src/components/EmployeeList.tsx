@@ -7,6 +7,7 @@ import ListItemAvatar from '@mui/material/ListItemAvatar';
 import Avatar from '@mui/material/Avatar';
 import { User } from '../types/User';
 import { Link } from 'react-router-dom';
+import { Paper } from '@mui/material';
 
 const EmployeeList = ({
   employees,
@@ -19,7 +20,8 @@ const EmployeeList = ({
   };
 
   return (
-    <List dense className="w-3/12">
+    <List dense className="w-4/12 2xl:w-3/12">
+      <Paper elevation={1} className='p-1 w-full'>
       {employees.map((employee: User) => (
         <Link key={employee.id} to={`${employee.id}`}>
           <ListItem disablePadding>
@@ -48,6 +50,7 @@ const EmployeeList = ({
           </ListItem>
         </Link>
       ))}
+      </Paper>
     </List>
   );
 };

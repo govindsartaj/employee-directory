@@ -37,14 +37,14 @@ const EmployeeListContainer = () => {
   return (
     <Router>
       <div className="m-4">
-        <div className="flex">
+        <div className="flex h-8">
           <TextField
             hiddenLabel
-            placeholder="Find an employee"
+            placeholder="Search by name or title"
             size="small"
-            className="w-3/12"
+            className="w-4/12 2xl:w-3/12"
           />
-          Hey
+          Filters
         </div>
         <div className="flex flex-row align-middle justify-center">
           <EmployeeList
@@ -55,6 +55,15 @@ const EmployeeListContainer = () => {
           <Routes>
             <Route
               path="/:id"
+              element={
+                <EmployeeDetail
+                  setSelected={setSelected}
+                  employees={employees}
+                />
+              }
+            />
+            <Route
+              path="/"
               element={
                 <EmployeeDetail
                   setSelected={setSelected}

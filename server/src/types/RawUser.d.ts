@@ -1,14 +1,25 @@
-export interface User {
+export interface RandomUserResponse {
+  info: {
+    seed: string;
+    results: number;
+    page: number;
+    version: number;
+  };
+  results: Array<RawUser> | null;
+}
+export interface RawUser {
+  gender: string;
   name: Name;
   location: Location;
   email: string;
-  dob: DOB;
+  login: Login;
+  dob: DobOrRegistered;
+  registered: DobOrRegistered;
   phone: string;
   cell: string;
-  id: number;
+  id: Id;
   picture: Picture;
   nat: string;
-  job: Job;
 }
 export interface Name {
   title: string;
@@ -16,17 +27,12 @@ export interface Name {
   last: string;
 }
 export interface Location {
-  street: Street;
+  street: string;
   city: string;
   state: string;
-  country: string;
-  postcode: number;
+  postcode: string;
   coordinates: Coordinates;
   timezone: Timezone;
-}
-export interface Street {
-  number: number;
-  name: string;
 }
 export interface Coordinates {
   latitude: string;
@@ -36,16 +42,25 @@ export interface Timezone {
   offset: string;
   description: string;
 }
-export interface DOB {
+export interface Login {
+  uuid: string;
+  username: string;
+  password: string;
+  salt: string;
+  md5: string;
+  sha1: string;
+  sha256: string;
+}
+export interface DobOrRegistered {
   date: string;
   age: number;
+}
+export interface Id {
+  name: string;
+  value: string;
 }
 export interface Picture {
   large: string;
   medium: string;
   thumbnail: string;
-}
-export interface Job {
-  title: string;
-  department: string;
 }

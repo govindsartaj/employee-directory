@@ -1,4 +1,4 @@
-import { User } from './types/User';
+import { RawUser } from './types/RawUser';
 
 const axios = require('axios');
 const faker = require('faker');
@@ -12,7 +12,7 @@ const getUsers = async () => {
     info: users.data.info,
     results: users.data.results.map(
       (
-        { name, location, email, dob, phone, cell, picture, nat }: User,
+        { name, location, email, dob, phone, cell, picture, nat }: RawUser,
         i: number
       ) => ({
         name,

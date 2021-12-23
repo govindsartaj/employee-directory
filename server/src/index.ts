@@ -5,6 +5,7 @@ const bodyParser = require('body-parser');
 import { Request, Response } from 'express';
 import getUsers from './getUsers';
 import { User } from './types/User';
+import { applyFilters, applySorting } from './sortAndFilter';
 
 const PORT = 8000;
 
@@ -29,7 +30,7 @@ const generateNewId = () => {
 
 // https://stackoverflow.com/a/47831954/13252400
 app.get('/user', async (req: Request, res: Response) => {
-  let usersResponse = users
+  let usersResponse = users;
   if (
     req.query.pre &&
     users.find((user) => user.id === Number(req.query.pre))
@@ -38,6 +39,9 @@ app.get('/user', async (req: Request, res: Response) => {
       users.find((user) => user.id === Number(req.query.pre)),
       ...users.filter((user) => user.id !== Number(req.query.pre)),
     ];
+  } else {
+    usersResponse = applyFilters(usersResponse, req.query);
+    // usersResponse = applySorting(usersResponse, req.query);
   }
 
   // pagination
@@ -51,6 +55,13 @@ app.get('/user', async (req: Request, res: Response) => {
   }
 
   res.json({
+    filterValues: {
+      department: [
+        ...new Set(usersResponse.map((item) => item.job.department)),
+      ],
+      country: [...new Set(usersResponse.map((item) => item.location.country))],
+      jobTitle: [...new Set(usersResponse.map((item) => item.job.title))],
+    },
     total: usersResponse.length,
     page: page,
     pageCount: pageCount,

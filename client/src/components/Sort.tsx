@@ -9,10 +9,10 @@ import { useState } from 'react';
 
 const Sort = () => {
   const [sortIsOpen, setSortIsOpen] = useState(false);
-
+  const [selected, setSelected] = useState<string>();
   return (
     <div
-      className="flex cursor-pointer"
+      className="flex mx-2 cursor-pointer"
       onMouseEnter={() => setSortIsOpen(true)}
       onMouseLeave={() => setSortIsOpen(false)}
     >
@@ -20,12 +20,17 @@ const Sort = () => {
       <img
         src="https://www.svgrepo.com/show/25790/down-arrow.svg"
         alt="down arrow"
-        className="h-3 w-3 mt-2 mx-1"
+        className="w-3 h-3 mx-1 mt-2"
       ></img>
       {sortIsOpen && (
-        <Paper className="absolute top-11 w-36 h-36 z-50 p-4 bg-gray-100 cursor-default">
+        <Paper className="absolute z-50 w-auto h-auto p-4 bg-gray-100 cursor-default whitespace-nowrap top-11">
           <FormControl component="fieldset">
-            <RadioGroup aria-label="sorting" name="radio-buttons-group">
+            <RadioGroup
+              aria-label="sorting"
+              name="radio-buttons-group"
+              onChange={(e, val) => setSelected(val)}
+              value={selected}
+            >
               <FormControlLabel
                 value="Name: A-Z"
                 control={<Radio />}
@@ -35,6 +40,26 @@ const Sort = () => {
                 value="Name: Z-A"
                 control={<Radio />}
                 label="Name: Z-A"
+              />
+              <FormControlLabel
+                value="Job title: A-Z"
+                control={<Radio />}
+                label="Job title: A-Z"
+              />
+              <FormControlLabel
+                value="Job title: Z-A"
+                control={<Radio />}
+                label="Job title: Z-A"
+              />
+              <FormControlLabel
+                value="Department: A-Z"
+                control={<Radio />}
+                label="Department: A-Z"
+              />
+              <FormControlLabel
+                value="Department: Z-A"
+                control={<Radio />}
+                label="Department: Z-A"
               />
             </RadioGroup>
           </FormControl>

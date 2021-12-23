@@ -32,7 +32,7 @@ const EmployeeDetail = ({ setSelected, employees }: EmployeeDetailProps) => {
       }
     };
     getSelectedEmployee();
-  }, [id, employees, setSelected]);
+  }, [id]);
 
   return (
     <div className="w-8/12 2xl:w-9/12">

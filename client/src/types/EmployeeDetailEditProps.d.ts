@@ -1,7 +1,7 @@
 import { User } from './User';
 
-type EmployeeDetailProps = {
+type EmployeeDetailEditProps = {
   employees: Array<User>;
   setSelected: Function;
-  deleteEmployee: Function;
+  saveEmployee: Function;
 };

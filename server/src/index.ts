@@ -6,7 +6,7 @@ import { Request, Response } from 'express';
 import getUsers from './getUsers';
 import { User } from './types/User';
 
-const PORT = 8080;
+const PORT = 8000;
 
 // middleware
 app.use(
@@ -47,8 +47,39 @@ app.get('/user', async (req: Request, res: Response) => {
   });
 });
 
-app.get('/user/:id', async (req: Request, res: Response) => {
-  res.send(users.find((user) => user.id === Number(req.params.id)));
+app.get('/user/:id', (req: Request, res: Response) => {
+  try {
+    res.send(users.find((user) => user.id === Number(req.params.id)));
+  } catch (e) {
+    console.error(e);
+  }
+});
+
+app.delete('/user/:id', (req: Request, res: Response) => {
+  try {
+    users = users.filter((user) => user.id !== Number(req.params.id));
+    res.json({ success: `deleted user ${req.params.id}` });
+  } catch (e) {
+    console.error(e);
+  }
+});
+
+app.put('/user/:id', (req: Request, res: Response) => {
+  try {
+    let userToUpdate = users.find((user) => user.id === Number(req.params.id));
+    if (req.body.first) userToUpdate.name.first = req.body.first;
+    if (req.body.last) userToUpdate.name.last = req.body.last;
+    if (req.body.jobTitle) userToUpdate.job.title = req.body.jobTitle;
+    if (req.body.department) userToUpdate.job.department = req.body.department;
+    if (req.body.city) userToUpdate.location.city = req.body.city;
+    if (req.body.country) userToUpdate.location.country = req.body.country;
+    if (req.body.email) userToUpdate.email = req.body.email;
+    if (req.body.phone) userToUpdate.phone = req.body.phone;
+
+    res.send(userToUpdate);
+  } catch (e) {
+    console.error(e);
+  }
 });
 
 // data is fetched when server is started - this is done to mock a db

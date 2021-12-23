@@ -8,4 +8,7 @@ type EmployeeListProps = {
   setCurrentPage: Function;
   totalPages: number;
   totalResults: number;
+  availableFilters: AvailableFilters;
+  appliedFilters: AvailableFilters;
+  setAppliedFilters: Function;
 };

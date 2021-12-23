@@ -1,10 +1,10 @@
 import Filter from './Filter';
 import Sort from './Sort';
 
-const FilterAndSort = () => {
+const FilterAndSort = ({ availableFilters, appliedFilters, setAppliedFilters }: FilterAndSortProps) => {
   return (
     <div className="flex">
-      <Filter />
+      <Filter availableFilters={availableFilters} appliedFilters={appliedFilters} setAppliedFilters={setAppliedFilters}/>
       <Sort />
     </div>
   );

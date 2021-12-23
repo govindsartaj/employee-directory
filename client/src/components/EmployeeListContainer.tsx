@@ -13,6 +13,7 @@ import {
 import EmployeeDetailEdit from './EmployeeEditDetail';
 import { Button } from '@mui/material';
 import EmployeeAddDetail from './EmployeeAddDetail';
+import { isMap } from 'util/types';
 
 const EmployeeListContainer = () => {
   const [employees, setEmployees] = useState<Array<User>>([]);
@@ -20,14 +21,14 @@ const EmployeeListContainer = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(0);
   const [totalResults, setTotalResults] = useState(0);
+  const [availableFilters, setAvailableFilters] = useState<AvailableFilters>();
+  const [appliedFilters, setAppliedFilters] = useState<AvailableFilters>({
+    department: [],
+    country: [],
+  });
 
-  const getEmployeesWithPre = async (id: number) => {
-    const employeesResponse = await fetch(
-      `http://localhost:8000/user?pre=${id}`
-    );
-    const employeesJSON = await employeesResponse.json();
-    setEmployees(employeesJSON.users);
-  };
+  // set to a random number to track when data is modified
+  const [isModifyingEmployees, setIsModifyingEmployees] = useState(0);
 
   const deleteEmployee = async (id: number) => {
     try {
@@ -36,6 +37,7 @@ const EmployeeListContainer = () => {
       });
       const resJSON = await res.json();
       setEmployees(employees.filter((employee) => employee.id !== id));
+      setIsModifyingEmployees(Math.random());
     } catch (e) {
       console.error('delete employee failed');
     }
@@ -46,7 +48,6 @@ const EmployeeListContainer = () => {
     id: number = -1,
     options = { new: false }
   ) => {
-    console.log(id, details);
     try {
       const res = await fetch(
         `http://localhost:8000/user${options.new ? '' : `/${id}`}`,
@@ -70,6 +71,7 @@ const EmployeeListContainer = () => {
               }
             })
       );
+      setIsModifyingEmployees(Math.random());
       return updatedEmployee;
     } catch (e) {
       console.error(e);
@@ -85,18 +87,43 @@ const EmployeeListContainer = () => {
       setEmployees(employeesJSON.users);
       setTotalPages(employeesJSON.pageCount);
       setTotalResults(employeesJSON.total);
+      setAvailableFilters(employeesJSON.filterValues);
     };
-    if (
-      selected &&
-      employees.length > 0 &&
-      !employees.find((employee) => employee.id === selected)
-    ) {
-      console.log(currentPage);
-      getEmployeesWithPre(selected);
-    } else {
-      getEmployees();
-    }
-  }, [currentPage, selected]);
+
+    getEmployees();
+  }, [currentPage, isModifyingEmployees]);
+
+  const encodedFilters = (filters: AvailableFilters) => {
+    let result: Array<string> = [];
+
+    filters?.country.forEach((val) => {
+      result.push(`country=${val}`);
+    });
+
+    filters?.department.forEach((val) => {
+      result.push(`department=${val}`);
+    });
+
+    return result.join('&');
+  };
+
+  // fetch data when filters change
+  useEffect(() => {
+    // setCurrentPage(1);
+    const getEmployees = async () => {
+      const employeesResponse = await fetch(
+        `http://localhost:8000/user?${encodedFilters(appliedFilters)}`
+      );
+      const employeesJSON = await employeesResponse.json();
+      setEmployees(employeesJSON.users);
+      setTotalPages(employeesJSON.pageCount);
+      setTotalResults(employeesJSON.total);
+      // setAvailableFilters(employeesJSON.filterValues);
+    };
+    getEmployees();
+
+    console.log(encodedFilters(appliedFilters));
+  }, [appliedFilters]);
 
   return (
     <Router>
@@ -123,6 +150,9 @@ const EmployeeListContainer = () => {
             totalPages={totalPages}
             setCurrentPage={setCurrentPage}
             totalResults={totalResults}
+            availableFilters={availableFilters}
+            appliedFilters={appliedFilters}
+            setAppliedFilters={setAppliedFilters}
           />
           <Routes>
             <Route
@@ -145,7 +175,10 @@ const EmployeeListContainer = () => {
                 />
               }
             />
-            <Route path="/new" element={<EmployeeAddDetail saveEmployee={saveEmployee} />} />
+            <Route
+              path="/new"
+              element={<EmployeeAddDetail saveEmployee={saveEmployee} />}
+            />
             <Route
               index
               element={

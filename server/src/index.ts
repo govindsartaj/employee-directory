@@ -60,7 +60,6 @@ app.get('/user', async (req: Request, res: Response) => {
         ...new Set(usersResponse.map((item) => item.job.department)),
       ],
       country: [...new Set(usersResponse.map((item) => item.location.country))],
-      jobTitle: [...new Set(usersResponse.map((item) => item.job.title))],
     },
     total: usersResponse.length,
     page: page,

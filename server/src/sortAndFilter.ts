@@ -3,7 +3,6 @@ import { User } from './types/User';
 const applyFilters = (users: Array<User>, query: qs.ParsedQs) => {
   let result = users;
   let departmentFilter = query.department;
-  const titleFilter = query.jobTitle;
   const countryFilter = query.country;
   // single value for a filter
   if (departmentFilter) {
@@ -17,18 +16,6 @@ const applyFilters = (users: Array<User>, query: qs.ParsedQs) => {
       result = result.filter(
         (user) => user.job.department === departmentFilter
       );
-    }
-  }
-
-  if (titleFilter) {
-    if (Array.isArray(titleFilter)) {
-      result = result.filter(
-        (user) =>
-          Array.isArray(titleFilter) &&
-          titleFilter.map((v) => String(v)).includes(user.job.title)
-      );
-    } else {
-      result = result.filter((user) => user.job.title === titleFilter);
     }
   }
 

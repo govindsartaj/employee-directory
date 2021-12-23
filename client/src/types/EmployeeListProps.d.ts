@@ -11,4 +11,6 @@ type EmployeeListProps = {
   availableFilters: AvailableFilters;
   appliedFilters: AvailableFilters;
   setAppliedFilters: Function;
+  appliedSorting: string;
+  setAppliedSorting: Function;
 };

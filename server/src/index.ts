@@ -41,7 +41,7 @@ app.get('/user', async (req: Request, res: Response) => {
     ];
   } else {
     usersResponse = applyFilters(usersResponse, req.query);
-    // usersResponse = applySorting(usersResponse, req.query);
+    usersResponse = applySorting(usersResponse, req.query);
   }
 
   // pagination

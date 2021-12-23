@@ -21,7 +21,9 @@ const EmployeeList = ({
   totalResults,
   availableFilters,
   appliedFilters,
-  setAppliedFilters
+  setAppliedFilters,
+  appliedSorting,
+  setAppliedSorting,
 }: EmployeeListProps) => {
   const handleClick = (id: number) => {
     console.log(id);
@@ -38,7 +40,13 @@ const EmployeeList = ({
       <Paper elevation={1} className="w-full p-1">
         <div className="flex justify-between m-2">
           {totalResults} Results
-          <FilterAndSort availableFilters={availableFilters} appliedFilters={appliedFilters} setAppliedFilters={setAppliedFilters}/>
+          <FilterAndSort
+            availableFilters={availableFilters}
+            appliedFilters={appliedFilters}
+            setAppliedFilters={setAppliedFilters}
+            appliedSorting={appliedSorting}
+            setAppliedSorting={setAppliedSorting}
+          />
         </div>
         {employees.map((employee: User) => (
           <Link key={employee.id} to={`${employee.id}`}>

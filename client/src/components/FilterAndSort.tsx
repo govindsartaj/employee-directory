@@ -1,11 +1,24 @@
 import Filter from './Filter';
 import Sort from './Sort';
 
-const FilterAndSort = ({ availableFilters, appliedFilters, setAppliedFilters }: FilterAndSortProps) => {
+const FilterAndSort = ({
+  availableFilters,
+  appliedFilters,
+  setAppliedFilters,
+  appliedSorting,
+  setAppliedSorting,
+}: FilterAndSortProps) => {
   return (
     <div className="flex">
-      <Filter availableFilters={availableFilters} appliedFilters={appliedFilters} setAppliedFilters={setAppliedFilters}/>
-      <Sort />
+      <Filter
+        availableFilters={availableFilters}
+        appliedFilters={appliedFilters}
+        setAppliedFilters={setAppliedFilters}
+      />
+      <Sort
+        appliedSorting={appliedSorting}
+        setAppliedSorting={setAppliedSorting}
+      />
     </div>
   );
 };

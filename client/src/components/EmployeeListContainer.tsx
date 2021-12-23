@@ -3,17 +3,10 @@ import { useEffect, useState } from 'react';
 import { User } from '../types/User';
 import EmployeeDetail from './EmployeeDetail';
 import TextField from '@mui/material/TextField';
-import {
-  BrowserRouter as Router,
-  Route,
-  Routes,
-  useNavigate,
-  Link,
-} from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
 import EmployeeDetailEdit from './EmployeeEditDetail';
 import { Button } from '@mui/material';
 import EmployeeAddDetail from './EmployeeAddDetail';
-import { isMap } from 'util/types';
 
 const EmployeeListContainer = () => {
   const [employees, setEmployees] = useState<Array<User>>([]);
@@ -26,6 +19,7 @@ const EmployeeListContainer = () => {
     department: [],
     country: [],
   });
+  const [appliedSorting, setAppliedSorting] = useState<string>('nameAsc');
 
   // set to a random number to track when data is modified
   const [isModifyingEmployees, setIsModifyingEmployees] = useState(0);
@@ -112,7 +106,9 @@ const EmployeeListContainer = () => {
     // setCurrentPage(1);
     const getEmployees = async () => {
       const employeesResponse = await fetch(
-        `http://localhost:8000/user?${encodedFilters(appliedFilters)}`
+        `http://localhost:8000/user?sort=${appliedSorting}&${encodedFilters(
+          appliedFilters
+        )}`
       );
       const employeesJSON = await employeesResponse.json();
       setEmployees(employeesJSON.users);
@@ -123,7 +119,7 @@ const EmployeeListContainer = () => {
     getEmployees();
 
     console.log(encodedFilters(appliedFilters));
-  }, [appliedFilters]);
+  }, [appliedFilters, appliedSorting]);
 
   return (
     <Router>
@@ -153,6 +149,8 @@ const EmployeeListContainer = () => {
             availableFilters={availableFilters}
             appliedFilters={appliedFilters}
             setAppliedFilters={setAppliedFilters}
+            appliedSorting={appliedSorting}
+            setAppliedSorting={setAppliedSorting}
           />
           <Routes>
             <Route

@@ -6,7 +6,7 @@ const Filter = ({
   availableFilters,
   appliedFilters,
   setAppliedFilters,
-}: FilterAndSortProps) => {
+}: FilterProps) => {
   const [filterIsOpen, setFilterIsOpen] = useState(false);
   const [department, setDepartment] = useState<string[]>([]);
   const [country, setCountry] = useState<string[]>([]);

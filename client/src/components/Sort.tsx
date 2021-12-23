@@ -7,9 +7,9 @@ import {
 } from '@mui/material';
 import { useState } from 'react';
 
-const Sort = () => {
+const Sort = ({ appliedSorting, setAppliedSorting }: SortProps) => {
   const [sortIsOpen, setSortIsOpen] = useState(false);
-  const [selected, setSelected] = useState<string>();
+
   return (
     <div
       className="flex mx-2 cursor-pointer"
@@ -28,36 +28,36 @@ const Sort = () => {
             <RadioGroup
               aria-label="sorting"
               name="radio-buttons-group"
-              onChange={(e, val) => setSelected(val)}
-              value={selected}
+              onChange={(e, val) => setAppliedSorting(val)}
+              value={appliedSorting}
             >
               <FormControlLabel
-                value="Name: A-Z"
+                value="nameAsc"
                 control={<Radio />}
                 label="Name: A-Z"
               />
               <FormControlLabel
-                value="Name: Z-A"
+                value="nameDesc"
                 control={<Radio />}
                 label="Name: Z-A"
               />
               <FormControlLabel
-                value="Job title: A-Z"
+                value="jobTitleAsc"
                 control={<Radio />}
                 label="Job title: A-Z"
               />
               <FormControlLabel
-                value="Job title: Z-A"
+                value="jobTitleDesc"
                 control={<Radio />}
                 label="Job title: Z-A"
               />
               <FormControlLabel
-                value="Department: A-Z"
+                value="departmentAsc"
                 control={<Radio />}
                 label="Department: A-Z"
               />
               <FormControlLabel
-                value="Department: Z-A"
+                value="departmentDesc"
                 control={<Radio />}
                 label="Department: Z-A"
               />

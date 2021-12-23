@@ -86,7 +86,7 @@ const EmployeeDetailEdit = ({
     };
 
     if (Object.keys(toSave).length !== 0) {
-      const saved = await saveEmployee(id, toSave);
+      const saved = await saveEmployee(toSave, id);
       if (saved) navigate(`/${id}`);
     }
   };

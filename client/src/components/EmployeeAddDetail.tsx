@@ -1,7 +1,8 @@
 import { Box, Button, Paper, TextField } from '@mui/material';
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
-const EmployeeAddDetail = () => {
+const EmployeeAddDetail = ({ saveEmployee }: { saveEmployee: Function }) => {
   const [first, setFirst] = useState('');
   const [last, setLast] = useState('');
   const [jobTitle, setJobTitle] = useState('');
@@ -10,6 +11,28 @@ const EmployeeAddDetail = () => {
   const [country, setCountry] = useState('');
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
+
+  const navigate = useNavigate();
+
+  const onAddEmployeeButtonClick = async () => {
+    const saved = await saveEmployee(
+      {
+        first,
+        last,
+        jobTitle,
+        department,
+        city,
+        country,
+        email,
+        phone,
+      },
+      undefined,
+      { new: true }
+    );
+    if (saved) {
+      navigate(`/${saved.id}`);
+    }
+  };
 
   return (
     <div className="w-8/12 2xl:w-9/12">
@@ -116,7 +139,7 @@ const EmployeeAddDetail = () => {
           </Box>
 
           <div className="flex justify-center m-4">
-            <Button variant="outlined" onClick={() => console.log('hey')}>
+            <Button variant="outlined" onClick={onAddEmployeeButtonClick}>
               Add Employee
             </Button>
           </div>

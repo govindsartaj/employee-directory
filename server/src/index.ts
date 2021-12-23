@@ -20,18 +20,28 @@ app.use(cors());
 // users array to mock a collection of users
 let users: Array<User>;
 
+// dummy method to generate new unique ID
+// would use some hashing func in real life
+const generateNewId = () => {
+  const idList = users.map((user) => user.id);
+  return Math.max(...idList) + 1;
+};
+
 // https://stackoverflow.com/a/47831954/13252400
 app.get('/user', async (req: Request, res: Response) => {
+  let usersResponse = users
   if (
     req.query.pre &&
     users.find((user) => user.id === Number(req.query.pre))
   ) {
-    users = [
+    usersResponse = [
       users.find((user) => user.id === Number(req.query.pre)),
       ...users.filter((user) => user.id !== Number(req.query.pre)),
     ];
   }
-  const pageCount = Math.ceil(users.length / 35);
+
+  // pagination
+  const pageCount = Math.ceil(usersResponse.length / 35);
   let page = Number(req.query.p);
   if (!page) {
     page = 1;
@@ -39,11 +49,12 @@ app.get('/user', async (req: Request, res: Response) => {
   if (page > pageCount) {
     page = pageCount;
   }
+
   res.json({
-    total: users.length,
+    total: usersResponse.length,
     page: page,
     pageCount: pageCount,
-    users: users.slice(page * 35 - 35, page * 35),
+    users: usersResponse.slice(page * 35 - 35, page * 35),
   });
 });
 
@@ -77,6 +88,31 @@ app.put('/user/:id', (req: Request, res: Response) => {
     if (req.body.phone) userToUpdate.phone = req.body.phone;
 
     res.send(userToUpdate);
+  } catch (e) {
+    console.error(e);
+  }
+});
+
+app.post('/user', (req: Request, res: Response) => {
+  try {
+    const newUser: User = {
+      name: { first: req.body.first, last: req.body.last },
+      location: { city: req.body.city, country: req.body.country },
+      email: req.body.email,
+      phone: req.body.phone,
+      id: generateNewId(),
+      job: { title: req.body.jobTitle, department: req.body.department },
+      picture: {
+        thumbnail:
+          'https://govindb.com/_next/image?url=%2Fstatic%2Fimages%2Favatar.gif&w=384&q=75',
+        medium:
+          'https://govindb.com/_next/image?url=%2Fstatic%2Fimages%2Favatar.gif&w=384&q=75',
+        large:
+          'https://govindb.com/_next/image?url=%2Fstatic%2Fimages%2Favatar.gif&w=384&q=75',
+      },
+    };
+    users.push(newUser);
+    res.send(newUser);
   } catch (e) {
     console.error(e);
   }

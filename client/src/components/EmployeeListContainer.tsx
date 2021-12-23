@@ -41,27 +41,36 @@ const EmployeeListContainer = () => {
     }
   };
 
-  const saveEmployee = async (id: number, details: SaveEmployeeDetails) => {
+  const saveEmployee = async (
+    details: SaveEmployeeDetails,
+    id: number = -1,
+    options = { new: false }
+  ) => {
     console.log(id, details);
     try {
-      const res = await fetch(`http://localhost:8000/user/${id}`, {
-        method: 'PUT',
-        body: JSON.stringify(details),
-        headers: {
-          'Content-type': 'application/json; charset=UTF-8', // Indicates the content
-        },
-      });
+      const res = await fetch(
+        `http://localhost:8000/user${options.new ? '' : `/${id}`}`,
+        {
+          method: options.new ? 'POST' : 'PUT',
+          body: JSON.stringify(details),
+          headers: {
+            'Content-type': 'application/json; charset=UTF-8', // Indicates the content
+          },
+        }
+      );
       const updatedEmployee: User = await res.json();
       setEmployees(
-        employees.map((employee) => {
-          if (employee.id === updatedEmployee.id) {
-            return updatedEmployee;
-          } else {
-            return employee;
-          }
-        })
+        options.new
+          ? [...employees, updatedEmployee]
+          : employees.map((employee) => {
+              if (employee.id === updatedEmployee.id) {
+                return updatedEmployee;
+              } else {
+                return employee;
+              }
+            })
       );
-      return true;
+      return updatedEmployee;
     } catch (e) {
       console.error(e);
     }
@@ -136,7 +145,7 @@ const EmployeeListContainer = () => {
                 />
               }
             />
-            <Route path="/new" element={<EmployeeAddDetail />} />
+            <Route path="/new" element={<EmployeeAddDetail saveEmployee={saveEmployee} />} />
             <Route
               index
               element={

@@ -1,6 +1,6 @@
 import { Avatar } from "@mui/material";
-import { EmployeeDetailContentProps } from "../types/EmployeeDetailContentProps";
-import EmployeeDetailMenu from "./EmployeeDetailMenu";
+import { EmployeeDetailContentProps } from "../../types/EmployeeDetailContentProps";
+import EmployeeDetailMenu from "../EmployeeDetailMenu/EmployeeDetailMenu";
 
 const EmployeeDetailContent = ({selectedEmployee, deleteEmployee, id} : EmployeeDetailContentProps) => {
   return (

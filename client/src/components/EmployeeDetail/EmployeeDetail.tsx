@@ -1,9 +1,9 @@
 import { Paper } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { EmployeeDetailProps } from '../types/EmployeeDetailProps';
-import { User } from '../types/User';
-import EmployeeDetailContent from './EmployeeDetailContent';
+import { EmployeeDetailProps } from '../../types/EmployeeDetailProps';
+import { User } from '../../types/User';
+import EmployeeDetailContent from '../EmployeeDetailContent/EmployeeDetailContent';
 
 const EmployeeDetail = ({
   setSelected,

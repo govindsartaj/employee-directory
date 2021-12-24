@@ -1,5 +1,5 @@
 import EmployeeList from './EmployeeList';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { User } from '../types/User';
 import EmployeeDetail from './EmployeeDetail';
 import TextField from '@mui/material/TextField';
@@ -83,9 +83,15 @@ const EmployeeListContainer = () => {
       setTotalResults(employeesJSON.total);
       setAvailableFilters(employeesJSON.filterValues);
     };
-
-    getEmployees();
-  }, [currentPage, isModifyingEmployees]);
+    console.log(currentPage, appliedFilters);
+    if (
+      appliedFilters &&
+      appliedFilters.country.length === 0 &&
+      appliedFilters.department.length === 0
+    ) {
+      getEmployees();
+    }
+  }, [currentPage, isModifyingEmployees, appliedFilters]);
 
   const encodedFilters = (filters: AvailableFilters) => {
     let result: Array<string> = [];
@@ -103,10 +109,9 @@ const EmployeeListContainer = () => {
 
   // fetch data when filters change
   useEffect(() => {
-    // setCurrentPage(1);
     const getEmployees = async () => {
       const employeesResponse = await fetch(
-        `http://localhost:8000/user?sort=${appliedSorting}&${encodedFilters(
+        `http://localhost:8000/user?p=${currentPage}&sort=${appliedSorting}&${encodedFilters(
           appliedFilters
         )}`
       );
@@ -114,12 +119,10 @@ const EmployeeListContainer = () => {
       setEmployees(employeesJSON.users);
       setTotalPages(employeesJSON.pageCount);
       setTotalResults(employeesJSON.total);
-      // setAvailableFilters(employeesJSON.filterValues);
     };
-    getEmployees();
 
-    console.log(encodedFilters(appliedFilters));
-  }, [appliedFilters, appliedSorting]);
+    getEmployees();
+  }, [appliedFilters, appliedSorting, currentPage, isModifyingEmployees]);
 
   return (
     <Router>

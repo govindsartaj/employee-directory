@@ -63,6 +63,7 @@ const Filter = ({
             isMulti={true}
             onChange={handleDepartmentChange}
             value={department.map((a) => ({ value: a, label: a }))}
+            className="m-1"
           />
           <Select
             options={availableFilters?.country.map((opt) => ({
@@ -73,6 +74,7 @@ const Filter = ({
             isMulti={true}
             onChange={handleCountryChange}
             value={country.map((a) => ({ value: a, label: a }))}
+            className="m-1"
           />
         </Paper>
       )}

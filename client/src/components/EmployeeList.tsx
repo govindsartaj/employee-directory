@@ -48,34 +48,52 @@ const EmployeeList = ({
             setAppliedSorting={setAppliedSorting}
           />
         </div>
-        {employees.map((employee: User) => (
-          <Link key={employee.id} to={`${employee.id}`}>
-            <ListItem disablePadding>
-              <ListItemButton
-                onClick={() => handleClick(employee.id)}
-                selected={employee.id === selected}
-                disableRipple={true}
-              >
-                <ListItemAvatar>
-                  <Avatar
-                    alt={`Avatar for ${employee.name.first} ${employee.name.last}`}
-                    src={employee.picture.thumbnail}
+
+        {employees.length > 0 ? (
+          employees.map((employee: User) => (
+            <Link key={employee.id} to={`${employee.id}`}>
+              <ListItem disablePadding>
+                <ListItemButton
+                  onClick={() => handleClick(employee.id)}
+                  selected={employee.id === selected}
+                  disableRipple={true}
+                >
+                  <ListItemAvatar>
+                    <Avatar
+                      alt={`Avatar for ${employee.name.first} ${employee.name.last}`}
+                      src={employee.picture.thumbnail}
+                    />
+                  </ListItemAvatar>
+                  <ListItemText
+                    primary={`${employee.name.first} ${employee.name.last}`}
+                    secondary={
+                      <>
+                        {employee.job.title}
+                        <br />
+                        {employee.job.department} &#8226;{' '}
+                        {employee.location.country}
+                      </>
+                    }
                   />
-                </ListItemAvatar>
-                <ListItemText
-                  primary={`${employee.name.first} ${employee.name.last}`}
-                  secondary={
-                    <>
-                      {employee.job.title}
-                      <br />
-                      {employee.job.department}
-                    </>
-                  }
-                />
-              </ListItemButton>
-            </ListItem>
-          </Link>
-        ))}
+                </ListItemButton>
+              </ListItem>
+            </Link>
+          ))
+        ) : (
+          <div className="h-full m-16 text-sm text-center">
+            No results found
+            <div className="flex items-center justify-center m-4">
+              <img
+                src="https://www.svgrepo.com/show/48089/sad.svg"
+                alt="no results found sad face"
+                className="w-16 h-16"
+              ></img>
+            </div>
+            <div className="m-2 text-xs text-center">
+              Try a different search query, or a different filter.
+            </div>
+          </div>
+        )}
         <div className="flex justify-center align-middle">
           <Pagination
             count={totalPages}

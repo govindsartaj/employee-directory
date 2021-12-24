@@ -1,13 +1,12 @@
-import EmployeeList from './EmployeeList';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { User } from '../types/User';
-import EmployeeDetail from './EmployeeDetail';
-import TextField from '@mui/material/TextField';
-import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
-import EmployeeDetailEdit from './EmployeeEditDetail';
-import { Button } from '@mui/material';
+import encodeFilters from '../util/encodeFilters';
 import EmployeeAddDetail from './EmployeeAddDetail';
-import SearchBar from './SearchBar';
+import EmployeeDetail from './EmployeeDetail';
+import EmployeeDetailEdit from './EmployeeEditDetail';
+import EmployeeList from './EmployeeList';
+import HeaderBar from './HeaderBar';
 
 const EmployeeListContainer = () => {
   const [employees, setEmployees] = useState<Array<User>>([]);
@@ -85,7 +84,7 @@ const EmployeeListContainer = () => {
       setTotalResults(employeesJSON.total);
       setAvailableFilters(employeesJSON.filterValues);
     };
-    console.log(currentPage, appliedFilters, searchQuery);
+
     if (
       appliedFilters &&
       appliedFilters.country.length === 0 &&
@@ -96,25 +95,11 @@ const EmployeeListContainer = () => {
     }
   }, [currentPage, isModifyingEmployees, appliedFilters, searchQuery]);
 
-  const encodedFilters = (filters: AvailableFilters) => {
-    let result: Array<string> = [];
-
-    filters?.country.forEach((val) => {
-      result.push(`country=${val}`);
-    });
-
-    filters?.department.forEach((val) => {
-      result.push(`department=${val}`);
-    });
-
-    return result.join('&');
-  };
-
   // fetch data when filters change
   useEffect(() => {
     const getEmployees = async () => {
       const employeesResponse = await fetch(
-        `http://localhost:8000/user?p=${currentPage}&search=${searchQuery}&sort=${appliedSorting}&${encodedFilters(
+        `http://localhost:8000/user?p=${currentPage}&search=${searchQuery}&sort=${appliedSorting}&${encodeFilters(
           appliedFilters
         )}`
       );
@@ -125,22 +110,18 @@ const EmployeeListContainer = () => {
     };
 
     getEmployees();
-  }, [appliedFilters, appliedSorting, currentPage, isModifyingEmployees, searchQuery]);
+  }, [
+    appliedFilters,
+    appliedSorting,
+    currentPage,
+    isModifyingEmployees,
+    searchQuery,
+  ]);
 
   return (
     <Router>
       <div className="m-4">
-        <div className="flex justify-between h-8">
-          <SearchBar
-            searchQuery={searchQuery}
-            setSearchQuery={setSearchQuery}
-          />
-          <div className="mx-2 mt-1">
-            <Button variant="outlined">
-              <Link to={'/new'}>New employee</Link>
-            </Button>
-          </div>
-        </div>
+        <HeaderBar searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
         <div className="flex flex-row justify-center align-middle">
           <EmployeeList
             employees={employees}

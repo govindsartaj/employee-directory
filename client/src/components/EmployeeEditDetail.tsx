@@ -1,13 +1,8 @@
 import {
-  Box,
-  Paper,
-  Input,
-  InputLabel,
-  TextField,
-  Button,
+  Box, Button, Paper, TextField
 } from '@mui/material';
-import { useParams, useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 import { EmployeeDetailEditProps } from '../types/EmployeeDetailEditProps';
 import { User } from '../types/User';
 

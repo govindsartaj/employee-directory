@@ -1,9 +1,9 @@
 import {
-  Paper,
   FormControl,
-  RadioGroup,
   FormControlLabel,
+  Paper,
   Radio,
+  RadioGroup
 } from '@mui/material';
 import { useState } from 'react';
 

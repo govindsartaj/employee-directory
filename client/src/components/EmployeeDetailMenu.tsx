@@ -1,14 +1,12 @@
-import { useState } from 'react';
-import ClickAwayListener from '@mui/material/ClickAwayListener';
 import {
-  Paper,
   Box,
   List,
   ListItem,
   ListItemButton,
-  ListItemText,
-  ListItemAvatar,
+  ListItemText, Paper
 } from '@mui/material';
+import ClickAwayListener from '@mui/material/ClickAwayListener';
+import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
 const EmployeeDetailMenu = ({

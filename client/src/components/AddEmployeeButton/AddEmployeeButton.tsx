@@ -5,7 +5,7 @@ const AddEmployeeButton = () => {
   return (
     <div className="mx-2">
       <Button variant="outlined">
-        <Link to={'/new'}>New employee</Link>
+        <Link data-testid="new-employee-link" to={'/new'}>New employee</Link>
       </Button>
     </div>
   );

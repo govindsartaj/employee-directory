@@ -49,6 +49,7 @@ const EmployeeAddDetail = ({ saveEmployee }: { saveEmployee: Function }) => {
                 onChange={(e) => {
                   setFirst(e.target.value);
                 }}
+                inputProps={{ "data-testid": "add-user-first-name-input" }}
               />
             </div>
             <div className="w-1/2 m-2">
@@ -60,6 +61,7 @@ const EmployeeAddDetail = ({ saveEmployee }: { saveEmployee: Function }) => {
                 onChange={(e) => {
                   setLast(e.target.value);
                 }}
+                inputProps={{ "data-testid": "add-user-last-name-input" }}
               />
             </div>
           </Box>
@@ -73,6 +75,7 @@ const EmployeeAddDetail = ({ saveEmployee }: { saveEmployee: Function }) => {
                 onChange={(e) => {
                   setJobTitle(e.target.value);
                 }}
+                inputProps={{ "data-testid": "add-user-job-title-input" }}
               />
             </div>
           </Box>
@@ -86,6 +89,7 @@ const EmployeeAddDetail = ({ saveEmployee }: { saveEmployee: Function }) => {
                 onChange={(e) => {
                   setDepartment(e.target.value);
                 }}
+                inputProps={{ "data-testid": "add-user-department-input" }}
               />
             </div>
           </Box>
@@ -99,6 +103,7 @@ const EmployeeAddDetail = ({ saveEmployee }: { saveEmployee: Function }) => {
                 onChange={(e) => {
                   setCity(e.target.value);
                 }}
+                inputProps={{ "data-testid": "add-user-city-input" }}
               />
             </div>
             <div className="w-1/2 m-2">
@@ -110,6 +115,7 @@ const EmployeeAddDetail = ({ saveEmployee }: { saveEmployee: Function }) => {
                 onChange={(e) => {
                   setCountry(e.target.value);
                 }}
+                inputProps={{ "data-testid": "add-user-country-input" }}
               />
             </div>
           </Box>
@@ -123,6 +129,7 @@ const EmployeeAddDetail = ({ saveEmployee }: { saveEmployee: Function }) => {
                 onChange={(e) => {
                   setEmail(e.target.value);
                 }}
+                inputProps={{ "data-testid": "add-user-email-input" }}
               />
             </div>
             <div className="w-1/2 m-2">
@@ -134,12 +141,13 @@ const EmployeeAddDetail = ({ saveEmployee }: { saveEmployee: Function }) => {
                 onChange={(e) => {
                   setPhone(e.target.value);
                 }}
+                inputProps={{ "data-testid": "add-user-phone-input" }}
               />
             </div>
           </Box>
 
           <div className="flex justify-center m-4">
-            <Button variant="outlined" onClick={onAddEmployeeButtonClick}>
+            <Button variant="outlined" onClick={onAddEmployeeButtonClick} data-testid="add-user-submit-button">
               Add Employee
             </Button>
           </div>

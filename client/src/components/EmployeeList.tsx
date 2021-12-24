@@ -85,12 +85,12 @@ const EmployeeList = ({
             <div className="flex items-center justify-center m-4">
               <img
                 src="https://www.svgrepo.com/show/48089/sad.svg"
-                alt="no results found sad face"
+                alt=":("
                 className="w-16 h-16"
               ></img>
             </div>
             <div className="m-2 text-xs text-center">
-              Try a different search query, or a different filter.
+              Try a different search query, or perhaps a different filter.
             </div>
           </div>
         )}

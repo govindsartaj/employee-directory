@@ -7,6 +7,7 @@ import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
 import EmployeeDetailEdit from './EmployeeEditDetail';
 import { Button } from '@mui/material';
 import EmployeeAddDetail from './EmployeeAddDetail';
+import SearchBar from './SearchBar';
 
 const EmployeeListContainer = () => {
   const [employees, setEmployees] = useState<Array<User>>([]);
@@ -20,6 +21,7 @@ const EmployeeListContainer = () => {
     country: [],
   });
   const [appliedSorting, setAppliedSorting] = useState<string>('nameAsc');
+  const [searchQuery, setSearchQuery] = useState('');
 
   // set to a random number to track when data is modified
   const [isModifyingEmployees, setIsModifyingEmployees] = useState(0);
@@ -83,15 +85,16 @@ const EmployeeListContainer = () => {
       setTotalResults(employeesJSON.total);
       setAvailableFilters(employeesJSON.filterValues);
     };
-    console.log(currentPage, appliedFilters);
+    console.log(currentPage, appliedFilters, searchQuery);
     if (
       appliedFilters &&
       appliedFilters.country.length === 0 &&
-      appliedFilters.department.length === 0
+      appliedFilters.department.length === 0 &&
+      searchQuery.length === 0
     ) {
       getEmployees();
     }
-  }, [currentPage, isModifyingEmployees, appliedFilters]);
+  }, [currentPage, isModifyingEmployees, appliedFilters, searchQuery]);
 
   const encodedFilters = (filters: AvailableFilters) => {
     let result: Array<string> = [];
@@ -111,7 +114,7 @@ const EmployeeListContainer = () => {
   useEffect(() => {
     const getEmployees = async () => {
       const employeesResponse = await fetch(
-        `http://localhost:8000/user?p=${currentPage}&sort=${appliedSorting}&${encodedFilters(
+        `http://localhost:8000/user?p=${currentPage}&search=${searchQuery}&sort=${appliedSorting}&${encodedFilters(
           appliedFilters
         )}`
       );
@@ -122,17 +125,15 @@ const EmployeeListContainer = () => {
     };
 
     getEmployees();
-  }, [appliedFilters, appliedSorting, currentPage, isModifyingEmployees]);
+  }, [appliedFilters, appliedSorting, currentPage, isModifyingEmployees, searchQuery]);
 
   return (
     <Router>
       <div className="m-4">
         <div className="flex justify-between h-8">
-          <TextField
-            hiddenLabel
-            placeholder="Search by name or title"
-            size="small"
-            className="w-4/12 2xl:w-3/12"
+          <SearchBar
+            searchQuery={searchQuery}
+            setSearchQuery={setSearchQuery}
           />
           <div className="mx-2 mt-1">
             <Button variant="outlined">

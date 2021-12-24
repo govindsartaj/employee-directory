@@ -1,3 +1,4 @@
+import QueryString from 'qs';
 import { User } from './types/User';
 
 const applyFilters = (users: Array<User>, query: qs.ParsedQs) => {
@@ -78,4 +79,32 @@ const applySorting = (users: Array<User>, query: qs.ParsedQs) => {
   return result;
 };
 
-export { applyFilters, applySorting };
+const applySearch = (users: Array<User>, query: qs.ParsedQs) => {
+  const rawQuery = query.search;
+  let result = users;
+  if (!rawQuery) return result;
+  const searchQuery = rawQuery.toString().toLowerCase();
+
+  return result.filter(({ name, email, phone, location, job }) => {
+    let first = name.first.toLowerCase();
+    let last = name.last.toLowerCase();
+    let city = location.city.toLowerCase();
+    let country = location.country.toLowerCase();
+    let jobTitle = job.title.toLowerCase();
+    let department = job.department.toLowerCase();
+    let emailAddress = email.toLowerCase();
+
+    return (
+      first.includes(searchQuery) ||
+      last.includes(searchQuery) ||
+      email.includes(searchQuery) ||
+      phone.includes(searchQuery) ||
+      city.includes(searchQuery) ||
+      country.includes(searchQuery) ||
+      jobTitle.includes(searchQuery) ||
+      department.includes(searchQuery)
+    );
+  });
+};
+
+export { applyFilters, applySorting, applySearch };

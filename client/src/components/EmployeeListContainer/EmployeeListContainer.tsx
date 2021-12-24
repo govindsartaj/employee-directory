@@ -1,12 +1,12 @@
 import { useEffect, useState } from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import { User } from '../types/User';
-import encodeFilters from '../util/encodeFilters';
-import EmployeeAddDetail from './EmployeeAddDetail/EmployeeAddDetail';
-import EmployeeDetail from './EmployeeDetail/EmployeeDetail';
-import EmployeeDetailEdit from './EmployeeEditDetail';
-import EmployeeList from './EmployeeList';
-import HeaderBar from './HeaderBar';
+import { User } from '../../types/User';
+import encodeFilters from '../../util/encodeFilters';
+import EmployeeAddDetail from '../EmployeeAddDetail/EmployeeAddDetail';
+import EmployeeDetail from '../EmployeeDetail/EmployeeDetail';
+import EmployeeDetailEdit from '../EmployeeEditDetail/EmployeeEditDetail';
+import EmployeeList from '../EmployeeList/EmployeeList';
+import HeaderBar from '../HeaderBar/HeaderBar';
 
 const EmployeeListContainer = () => {
   const [employees, setEmployees] = useState<Array<User>>([]);

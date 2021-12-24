@@ -7,9 +7,9 @@ import ListItemButton from '@mui/material/ListItemButton';
 import ListItemText from '@mui/material/ListItemText';
 import Pagination from '@mui/material/Pagination';
 import { Link } from 'react-router-dom';
-import { EmployeeListProps } from '../types/EmployeeListProps';
-import { User } from '../types/User';
-import FilterAndSort from './FilterAndSort';
+import { EmployeeListProps } from '../../types/EmployeeListProps';
+import { User } from '../../types/User';
+import FilterAndSort from '../FilterAndSort/FilterAndSort';
 
 const EmployeeList = ({
   employees,

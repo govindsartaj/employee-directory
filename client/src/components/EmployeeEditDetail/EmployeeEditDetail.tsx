@@ -3,8 +3,8 @@ import {
 } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { EmployeeDetailEditProps } from '../types/EmployeeDetailEditProps';
-import { User } from '../types/User';
+import { EmployeeDetailEditProps } from '../../types/EmployeeDetailEditProps';
+import { User } from '../../types/User';
 
 const EmployeeDetailEdit = ({
   employees,

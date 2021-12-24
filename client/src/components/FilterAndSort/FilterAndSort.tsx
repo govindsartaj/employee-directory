@@ -1,5 +1,5 @@
-import Filter from './Filter';
-import Sort from './Sort';
+import Filter from '../Filter/Filter';
+import Sort from '../Sort/Sort';
 
 const FilterAndSort = ({
   availableFilters,

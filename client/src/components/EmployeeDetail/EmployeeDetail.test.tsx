@@ -60,6 +60,7 @@ const fakeNonMemoryEmployeeFetchResponse = {
     large: 'somepicture.png',
   },
 };
+
 test('renders message and shows no employee data when no id present in path', () => {
   useParamsSpy.mockReturnValue({ id: undefined });
   render(

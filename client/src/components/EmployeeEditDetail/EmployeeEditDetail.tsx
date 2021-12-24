@@ -1,6 +1,4 @@
-import {
-  Box, Button, Paper, TextField
-} from '@mui/material';
+import { Box, Button, Paper, TextField } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { EmployeeDetailEditProps } from '../../types/EmployeeDetailEditProps';
@@ -102,6 +100,7 @@ const EmployeeDetailEdit = ({
                   setFirst(e.target.value);
                   setModified(true);
                 }}
+                inputProps={{ 'data-testid': 'edit-user-first-name-input' }}
               />
             </div>
             <div className="w-1/2 m-2">
@@ -114,6 +113,7 @@ const EmployeeDetailEdit = ({
                   setLast(e.target.value);
                   setModified(true);
                 }}
+                inputProps={{ 'data-testid': 'edit-user-last-name-input' }}
               />
             </div>
           </Box>
@@ -128,6 +128,7 @@ const EmployeeDetailEdit = ({
                   setJobTitle(e.target.value);
                   setModified(true);
                 }}
+                inputProps={{ 'data-testid': 'edit-user-job-title-input' }}
               />
             </div>
           </Box>
@@ -142,6 +143,7 @@ const EmployeeDetailEdit = ({
                   setDepartment(e.target.value);
                   setModified(true);
                 }}
+                inputProps={{ 'data-testid': 'edit-user-department-input' }}
               />
             </div>
           </Box>
@@ -156,6 +158,7 @@ const EmployeeDetailEdit = ({
                   setCity(e.target.value);
                   setModified(true);
                 }}
+                inputProps={{ 'data-testid': 'edit-user-city-input' }}
               />
             </div>
             <div className="w-1/2 m-2">
@@ -168,6 +171,7 @@ const EmployeeDetailEdit = ({
                   setCountry(e.target.value);
                   setModified(true);
                 }}
+                inputProps={{ 'data-testid': 'edit-user-country-input' }}
               />
             </div>
           </Box>
@@ -182,6 +186,7 @@ const EmployeeDetailEdit = ({
                   setEmail(e.target.value);
                   setModified(true);
                 }}
+                inputProps={{ 'data-testid': 'edit-user-email-input' }}
               />
             </div>
             <div className="w-1/2 m-2">
@@ -194,12 +199,17 @@ const EmployeeDetailEdit = ({
                   setPhone(e.target.value);
                   setModified(true);
                 }}
+                inputProps={{ 'data-testid': 'edit-user-phone-input' }}
               />
             </div>
           </Box>
           {modified && (
             <div className="flex justify-center m-4">
-              <Button variant="outlined" onClick={handleSaveButtonClick}>
+              <Button
+                variant="outlined"
+                onClick={handleSaveButtonClick}
+                data-testid="edit-user-submit-button"
+              >
                 Save changes
               </Button>
             </div>

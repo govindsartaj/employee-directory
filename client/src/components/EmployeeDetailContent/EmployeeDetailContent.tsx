@@ -4,7 +4,7 @@ import EmployeeDetailMenu from "../EmployeeDetailMenu/EmployeeDetailMenu";
 
 const EmployeeDetailContent = ({selectedEmployee, deleteEmployee, id} : EmployeeDetailContentProps) => {
   return (
-    <div>
+    <div data-testid="employee-detail-content">
       <EmployeeDetailMenu deleteEmployee={deleteEmployee} id={id} />
       <div className="flex justify-center align-middle">
         <Avatar

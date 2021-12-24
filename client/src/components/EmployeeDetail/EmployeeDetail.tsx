@@ -55,7 +55,7 @@ const EmployeeDetail = ({
                 id={Number(id)}
               />
             ) : (
-              <div className="text-center">
+              <div className="text-center" data-testid="no-employee-found-or-selected-message">
                 Select an employee to view more information
               </div>
             )}

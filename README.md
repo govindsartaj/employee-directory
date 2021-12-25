@@ -55,6 +55,7 @@ Once both the backend server and client servers have been started, navigate to h
 * **Avoid MaterialUI**: While MaterialUI is very quick to set up and use to build something, it is not lightweight by any means. All those unused props can make the application slow, especially when components are re-rendered frequently. To maximize performance, I would write as many components from scratch with custom CSS as possible.
 * **Not using create-react-app**: Similar to the reasoning for avoiding MaterialUI, while create-react-app is a great way to get started quickly, we would probably want to avoid it because of all the bulk that comes along with it.
 * **Defining more types**: I would have loved to define more types, so that we can use TypeScript to its fullest extent.
+* **Smarter searching**: Currently the search function uses String.includes() to get results. I would have loved to implement some sort of fuzzy search which would return partial matches too.
 
 ### Misc. Notes
 * Raw data was sourced from https://randomuser.me, but was cleaned up to only include fields that might be included in an employee directory. Further, because https://randomuser.me did not contain any employment data, I used [faker.js](https://github.com/marak/Faker.js/) to generate some fake job data for each employee. The data fetching and cleaning is all done when the backend server is started.

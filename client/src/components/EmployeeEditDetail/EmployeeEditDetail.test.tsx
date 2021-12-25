@@ -4,16 +4,10 @@ import EmployeeEditDetail from './EmployeeEditDetail';
 import Router, { BrowserRouter } from 'react-router-dom';
 import { User } from '../../types/User';
 
-const unmockedFetch = global.fetch;
-
 jest.mock('react-router-dom', () => ({
   ...jest.requireActual('react-router-dom'),
   useParams: jest.fn(),
 }));
-
-afterAll(() => {
-  global.fetch = unmockedFetch;
-});
 
 let useParamsSpy = jest.spyOn(Router, 'useParams');
 
@@ -46,19 +40,6 @@ const fakeEmployeesData: Array<User> = [
   },
 ];
 
-const fakeNonMemoryEmployeeFetchResponse = {
-  id: 3,
-  name: { first: 'Firstname', last: 'Lastname' },
-  job: { title: 'Scrum Master', department: 'Tech' },
-  location: { city: 'Lisbon', country: 'Portugal' },
-  email: 'firstnamelastname@example.com',
-  phone: '83243244',
-  picture: {
-    thumbnail: 'somepicture.png',
-    medium: 'somepicture.png',
-    large: 'somepicture.png',
-  },
-};
 
 test('renders prefilled edit employee form fields for valid id', () => {
   useParamsSpy.mockReturnValue({ id: '1' });

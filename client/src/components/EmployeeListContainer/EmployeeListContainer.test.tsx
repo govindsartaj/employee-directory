@@ -52,6 +52,7 @@ test('renders employees from server', async () => {
     })
   ) as jest.Mock;
 
+  // eslint-disable-next-line testing-library/no-unnecessary-act
   await act(async () => {
     render(<EmployeeListContainer />);
   });
@@ -76,6 +77,7 @@ test('renders detail view when employee in list is clicked', async () => {
     })
   ) as jest.Mock;
 
+  // eslint-disable-next-line testing-library/no-unnecessary-act
   await act(async () => {
     render(<EmployeeListContainer />);
   });

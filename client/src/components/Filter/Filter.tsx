@@ -55,7 +55,7 @@ const Filter = ({
       {filterIsOpen && (
         <Paper className="absolute z-50 w-64 h-auto p-4 bg-gray-100 cursor-default whitespace-nowrap top-11">
           <Select
-            options={availableFilters?.department.map((opt) => ({
+            options={availableFilters?.department.sort().map((opt) => ({
               value: opt,
               label: opt,
             }))}
@@ -66,7 +66,7 @@ const Filter = ({
             className="m-1"
           />
           <Select
-            options={availableFilters?.country.map((opt) => ({
+            options={availableFilters?.country.sort().map((opt) => ({
               value: opt,
               label: opt,
             }))}

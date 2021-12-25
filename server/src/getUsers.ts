@@ -7,7 +7,7 @@ const faker = require('faker');
 //   that might be relevant to an employee database, as well as add fake employment
 //      related info using fakerJS
 const getUsers = async () => {
-  const users = await axios.get('https://randomuser.me/api/?results=500');
+  const users = await axios.get('https://randomuser.me/api/?results=5000');
   return {
     info: users.data.info,
     results: users.data.results.map(

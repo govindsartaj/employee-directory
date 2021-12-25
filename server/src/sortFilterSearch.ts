@@ -1,11 +1,10 @@
-import QueryString from 'qs';
 import { User } from './types/User';
 
 const applyFilters = (users: Array<User>, query: qs.ParsedQs) => {
-  let result = users;
-  let departmentFilter = query.department;
+  let result = users.slice();
+  const departmentFilter = query.department;
   const countryFilter = query.country;
-  // single value for a filter
+
   if (departmentFilter) {
     if (Array.isArray(departmentFilter)) {
       result = result.filter(
@@ -36,7 +35,7 @@ const applyFilters = (users: Array<User>, query: qs.ParsedQs) => {
 };
 
 const applySorting = (users: Array<User>, query: qs.ParsedQs) => {
-  let result = users;
+  let result = users.slice();
 
   const sortType = query.sort;
   if (!sortType) return result;
@@ -81,7 +80,7 @@ const applySorting = (users: Array<User>, query: qs.ParsedQs) => {
 
 const applySearch = (users: Array<User>, query: qs.ParsedQs) => {
   const rawQuery = query.search;
-  let result = users;
+  let result = users.slice();
   if (!rawQuery) return result;
   const searchQuery = rawQuery.toString().toLowerCase();
 
@@ -97,7 +96,7 @@ const applySearch = (users: Array<User>, query: qs.ParsedQs) => {
     return (
       first.includes(searchQuery) ||
       last.includes(searchQuery) ||
-      email.includes(searchQuery) ||
+      emailAddress.includes(searchQuery) ||
       phone.includes(searchQuery) ||
       city.includes(searchQuery) ||
       country.includes(searchQuery) ||
